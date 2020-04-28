@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 		if(err){
 			res.status(404).send({msg: err});
 		} else {
-			res.send('index %s', result.rows[0].titulo);
+			res.send(result.rows);
 		}
 	});
 });
