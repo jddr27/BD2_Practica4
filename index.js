@@ -2,7 +2,7 @@
 
 const express = require('express');
 const cassandra = require('cassandra-driver'); 
-const client = new cassandra.Client({contactPoints:['bd2_DC1N1_1'], keyspace:'practica2'});
+const client = new cassandra.Client({contactPoints:['bd2_DC1N1_1','bd2_DC1N2_1','bd2_DC1N3_1'], keyspace:'practica2'});
 client.connect(function(err, result){
     if(err){
         console.log(err);
