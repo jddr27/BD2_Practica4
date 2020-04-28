@@ -11,7 +11,7 @@ var cassandra = require('cassandra-driver');
 //Replace Username and Password with your cluster settings
 //var authProvider = new cassandra.auth.PlainTextAuthProvider('Username', 'Password');
 //Replace PublicIP with the IP addresses of your clusters
-var client = new cassandra.Client({contactPoints:['DC1N1']/*, authProvider: authProvider, */keyspace:'practica2'});
+var client = new cassandra.Client({contactPoints:['DC1N1'],/* authProvider: authProvider, */keyspace:'practica2'});
  
 // App
 const app = express();
