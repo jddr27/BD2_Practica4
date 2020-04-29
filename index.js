@@ -33,7 +33,7 @@ app.post('/filtrar', (req, res) => {
     salida = "";
     if(req.body.fEmail == ""){
         console.log("correo vacio");
-        var query = 'SELECT * FROM tickets WHERE fecha > \'?\' AND fecha < \'?\' ALLOW FILTERING;';
+        var query = 'SELECT * FROM tickets WHERE fecha > ? AND fecha < ? ALLOW FILTERING;';
         console.log(query);
        /* client.execute(query,[req.body.fIni, req.body.fFin], (err, result) => {
             if(err){
@@ -58,7 +58,7 @@ app.post('/filtrar', (req, res) => {
     }
     else{
         console.log("correo no vacio");
-        var query = 'SELECT * FROM tickets WHERE fecha > \'?\' AND fecha < \'?\' AND email = \'?\' ALLOW FILTERING;';
+        var query = 'SELECT * FROM tickets WHERE fecha > ? AND fecha < ? AND email = ? ALLOW FILTERING;';
         console.log(query);
         client.execute(query,[req.body.fIni, req.body.fFin, req.body.fEmail], (err, result) => {
             if(err){
