@@ -2,14 +2,14 @@
 const express = require('express');
 const cassandra = require('cassandra-driver'); 
 const client = new cassandra.Client({contactPoints:['bd2_DC1N1_1:9042','bd2_DC1N2_1:9043','bd2_DC1N3_1:9044'], keyspace:'practica2'});
-/*client.connect(function(err, result){
+client.connect((err, result) => {
     if(err){
         console.log(err);
     } else {
         console.log('index: cassandra connected');
     }
     
-});*/
+});
  
 
 const app = express();
@@ -27,8 +27,9 @@ app.get('/',function(req, res){
     res.render('main',{consola:salida, valores:arreglo});
 });
 
-app.post('/filtrar',function(req, res){
+app.post('/filtrar', (req, res) => {
     console.log('entro a filtrar');
+    console.log(req.body)
     salida = "";
     if(req.body.fEmail == ""){
         console.log("correo vacio");
@@ -36,8 +37,11 @@ app.post('/filtrar',function(req, res){
         client.execute(query,[req.body.fIni, req.body.fFin], (err, result) => {
             if(err){
                 salida = err;
+                console.log("ERROR");
             } else {
                 arreglo = result.rows;
+                console.log(result.rows);
+                salida = "Correcta";
             }
         });
     }
@@ -47,8 +51,11 @@ app.post('/filtrar',function(req, res){
         client.execute(query,[req.body.fIni, req.body.fFin, req.body.fEmail], (err, result) => {
             if(err){
                 salida = err;
+                console.log("ERROR");
             } else {
                 arreglo = result.rows;
+                console.log(result.rows);
+                salida = "Correcta";
             }
         });
     }
@@ -57,7 +64,7 @@ app.post('/filtrar',function(req, res){
 });
 
 
-app.post('/crear',function(req, res){
+app.post('/crear', (req, res) => {
     arreglo = [];
     console.log('entro a crear');
     console.log(req.body);
@@ -67,11 +74,11 @@ app.post('/crear',function(req, res){
     console.log("idfinal: " + idfinal);
 
     const query = 'INSERT INTO tickets (idTicket, titulo, descripcion, email, fecha) VALUES (?, ?, ?, ?, ?)';
-    client.execute(query,[idfinal, req.body.nTitulo, req.body.nDescri, req.body.nEmail, req.body.nFecha], function(err, result){
+    client.execute(query,[idfinal, req.body.nTitulo, req.body.nDescri, req.body.nEmail, req.body.nFecha], (err, result) => {
 		if(err){
 			salida = err;
 		} else {
-            salida = result.rows;
+            salida = result;
 		}
     });
     res.redirect('/');
