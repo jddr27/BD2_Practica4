@@ -31,7 +31,7 @@ app.post('/filtrar', (req, res) => {
     console.log('entro a filtrar');
     console.log(req.body)
     salida = "";
-    if(req.body.fEmail == ""){
+    if(req.body.fEmail == "" && req.body.fIni != "" && req.body.fFin != "" ){
         console.log("correo vacio");
         var query = "SELECT * FROM tickets WHERE fecha > '" + req.body.fIni + "' AND fecha < '" + req.body.fFin + "' ALLOW FILTERING;";
         console.log(query);
@@ -46,9 +46,54 @@ app.post('/filtrar', (req, res) => {
             }
         });
     }
-    else{
-        console.log("correo no vacio");
+    else if(req.body.fEmail != "" && req.body.fIni != "" && req.body.fFin != "" ){
+        console.log("nada vacio");
         var query = "SELECT * FROM tickets WHERE fecha > '" + req.body.fIni + "' AND fecha < '" + req.body.fFin + "' AND email = '" + req.body.fEmail + "' ALLOW FILTERING;";
+        console.log(query);
+        client.execute(query,[], (err, result) => {
+            if(err){
+                salida = err;
+                console.log("ERROR" + err);
+            } else {
+                arreglo = result.rows;
+                console.log(result.rows);
+                salida = "Correcta";
+            }
+        });
+    }
+    else if(req.body.fEmail != "" && req.body.fIni == "" && req.body.fFin != "" ){
+        console.log("inicio vacio");
+        var query = "SELECT * FROM tickets WHERE fecha < '" + req.body.fFin + "' AND email = '" + req.body.fEmail + "' ALLOW FILTERING;";
+        console.log(query);
+        client.execute(query,[], (err, result) => {
+            if(err){
+                salida = err;
+                console.log("ERROR" + err);
+            } else {
+                arreglo = result.rows;
+                console.log(result.rows);
+                salida = "Correcta";
+            }
+        });
+    }
+    else if(req.body.fEmail != "" && req.body.fIni == "" && req.body.fFin != "" ){
+        console.log("fin vacio");
+        var query = "SELECT * FROM tickets WHERE fecha > '" + req.body.fIni + "' AND email = '" + req.body.fEmail + "' ALLOW FILTERING;";
+        console.log(query);
+        client.execute(query,[], (err, result) => {
+            if(err){
+                salida = err;
+                console.log("ERROR" + err);
+            } else {
+                arreglo = result.rows;
+                console.log(result.rows);
+                salida = "Correcta";
+            }
+        });
+    }
+    else{
+        console.log("todo");
+        var query = "SELECT * FROM tickets;";
         console.log(query);
         client.execute(query,[], (err, result) => {
             if(err){
@@ -80,7 +125,7 @@ app.post('/crear', (req, res) => {
             salida = err;
             console.log("ERROR" + err);
 		} else {
-            salida = result;
+            salida = "Creacion correcta";
             console.log(result);
 		}
     });
