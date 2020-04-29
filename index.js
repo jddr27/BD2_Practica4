@@ -35,7 +35,7 @@ app.post('/filtrar', (req, res) => {
         console.log("correo vacio");
         var query = 'SELECT * FROM tickets WHERE fecha > \'?\' AND fecha < \'?\' ALLOW FILTERING;';
         console.log(query);
-        client.execute(query,[req.body.fIni, req.body.fFin], (err, result) => {
+       /* client.execute(query,[req.body.fIni, req.body.fFin], (err, result) => {
             if(err){
                 salida = err;
                 console.log("ERROR" + err);
@@ -44,7 +44,17 @@ app.post('/filtrar', (req, res) => {
                 console.log(result.rows);
                 salida = "Correcta";
             }
-        });
+        });*/
+        client.execute(query,[req.body.fIni, req.body.fFin]).then((err, result) => {
+            if(err){
+                salida = err;
+                console.log("ERROR" + err);
+            } else {
+                arreglo = result.rows;
+                console.log(result.rows);
+                salida = "Correcta";
+            }
+           });
     }
     else{
         console.log("correo no vacio");
