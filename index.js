@@ -61,7 +61,6 @@ app.post('/filtrar', (req, res) => {
             }
         });
     }
-    
     res.redirect('/');
 });
 

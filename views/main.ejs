@@ -99,11 +99,11 @@
                 </tr>
                 <% for(var i=0; i< valores.length; i++){ %>
                 <tr>
-                  <td><%= valores.get(i).idticket %></td>
-                  <td><%= valores.get(i).titulo %></td> 
-                  <td><%= valores.get(i).descri %></td> 
-                  <td><%= valores.get(i).email %></td> 
-                  <td><%= valores.get(i).fecha %></td> 
+                  <td><%= valores[i].idticket %></td>
+                  <td><%= valores[i].titulo %></td> 
+                  <td><%= valores[i].descri %></td> 
+                  <td><%= valores[i].email %></td> 
+                  <td><%= valores[i].fecha %></td> 
                 </tr>
                 <% } %>
             </table>
