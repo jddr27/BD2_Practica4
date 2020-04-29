@@ -34,10 +34,11 @@ app.post('/filtrar', (req, res) => {
     if(req.body.fEmail == ""){
         console.log("correo vacio");
         var query = 'SELECT * FROM tickets WHERE fecha > \'?\' AND fecha < \'?\' ALLOW FILTERING;';
+        console.log(query);
         client.execute(query,[req.body.fIni, req.body.fFin], (err, result) => {
             if(err){
                 salida = err;
-                console.log("ERROR");
+                console.log("ERROR" + err);
             } else {
                 arreglo = result.rows;
                 console.log(result.rows);
@@ -48,10 +49,11 @@ app.post('/filtrar', (req, res) => {
     else{
         console.log("correo no vacio");
         var query = 'SELECT * FROM tickets WHERE fecha > \'?\' AND fecha < \'?\' AND email = \'?\' ALLOW FILTERING;';
+        console.log(query);
         client.execute(query,[req.body.fIni, req.body.fFin, req.body.fEmail], (err, result) => {
             if(err){
                 salida = err;
-                console.log("ERROR");
+                console.log("ERROR" + err);
             } else {
                 arreglo = result.rows;
                 console.log(result.rows);
@@ -76,9 +78,11 @@ app.post('/crear', (req, res) => {
     const query = 'INSERT INTO tickets (idTicket, titulo, descripcion, email, fecha) VALUES (?, ?, ?, ?, ?)';
     client.execute(query,[idfinal, req.body.nTitulo, req.body.nDescri, req.body.nEmail, req.body.nFecha], (err, result) => {
 		if(err){
-			salida = err;
+            salida = err;
+            console.log("ERROR" + err);
 		} else {
             salida = result;
+            console.log(result);
 		}
     });
     res.redirect('/');
