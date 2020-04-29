@@ -33,9 +33,9 @@ app.post('/filtrar', (req, res) => {
     salida = "";
     if(req.body.fEmail == ""){
         console.log("correo vacio");
-        var query = 'SELECT * FROM tickets WHERE fecha > ? AND fecha < ? ALLOW FILTERING;';
+        var query = "SELECT * FROM tickets WHERE fecha > '" + req.body.fIni + "' AND fecha < '" + req.body.fFin + "' ALLOW FILTERING;";
         console.log(query);
-       /* client.execute(query,[req.body.fIni, req.body.fFin], (err, result) => {
+        client.execute(query,[], (err, result) => {
             if(err){
                 salida = err;
                 console.log("ERROR" + err);
@@ -44,23 +44,13 @@ app.post('/filtrar', (req, res) => {
                 console.log(result.rows);
                 salida = "Correcta";
             }
-        });*/
-        client.execute(query,[req.body.fIni, req.body.fFin]).then((err, result) => {
-            if(err){
-                salida = err;
-                console.log("ERROR" + err);
-            } else {
-                arreglo = result.rows;
-                console.log(result.rows);
-                salida = "Correcta";
-            }
-           });
+        });
     }
     else{
         console.log("correo no vacio");
-        var query = 'SELECT * FROM tickets WHERE fecha > ? AND fecha < ? AND email = ? ALLOW FILTERING;';
+        var query = "SELECT * FROM tickets WHERE fecha > '" + req.body.fIni + "' AND fecha < '" + req.body.fFin + "' AND '" + req.body.fEmail + "' ALLOW FILTERING;";
         console.log(query);
-        client.execute(query,[req.body.fIni, req.body.fFin, req.body.fEmail], (err, result) => {
+        client.execute(query,[], (err, result) => {
             if(err){
                 salida = err;
                 console.log("ERROR" + err);
@@ -85,8 +75,8 @@ app.post('/crear', (req, res) => {
     var idfinal = id.toString() + '-' + id2.toString();
     console.log("idfinal: " + idfinal);
 
-    const query = 'INSERT INTO tickets (idTicket, titulo, descripcion, email, fecha) VALUES (?, ?, ?, ?, ?)';
-    client.execute(query,[idfinal, req.body.nTitulo, req.body.nDescri, req.body.nEmail, req.body.nFecha], (err, result) => {
+    const query = "INSERT INTO tickets (idTicket, titulo, descripcion, email, fecha) VALUES ('"+idfinal+"', '"+req.body.nTitulo+"', '"+req.body.nDescri+"', '"+req.body.nEmail+"', '"+req.body.nFecha+"')";
+    client.execute(query,[], (err, result) => {
 		if(err){
             salida = err;
             console.log("ERROR" + err);
