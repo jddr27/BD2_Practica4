@@ -19,6 +19,17 @@
                 color: white;
                 padding: 15px;
               }
+              table {
+                border-collapse: collapse;
+                width: 100%;
+               }
+
+               th, td {
+                text-align: left;
+                padding: 8px;
+               }
+
+                tr:nth-child(even) {background-color: #f2f2f2;}
             </style>
     </head>
     
@@ -38,7 +49,7 @@
         <h3> 201503393 - José Daniel De León Ruiz </h3> 
 
         <br> 
-        <br> 
+        <hr> 
         <br> 
 
         <div id="container-1" align="center">
@@ -68,7 +79,7 @@
         </div>
 
         <br> 
-        <br> 
+        <hr> 
         <br>
 
         <div id="wrapper" align="center">
@@ -89,25 +100,26 @@
                 <input type="submit" id="btnFiltrar" value="Filtrar">
             </form>
 
-            <table style="width: fit-content;">
-                <tr>
-                  <th>ID</th>
-                  <th>Titulo</th> 
-                  <th>Descripcion</th>
-                  <th>email</th> 
-                  <th>Fecha</th> 
-                </tr>
-                <% for(var i=0; i< valores.length; i++){ %>
-                <tr>
-                  <td><%= valores[i].idticket %></td>
-                  <td><%= valores[i].titulo %></td> 
-                  <td><%= valores[i].descripcion %></td> 
-                  <td><%= valores[i].email %></td> 
-                  <td><%= valores[i].fecha %></td> 
-                </tr>
-                <% } %>
-            </table>
-
+            <% if(valores.length > 0){ %>
+                <table style="width: fit-content;">
+                    <tr>
+                    <th>ID</th>
+                    <th>Titulo</th> 
+                    <th>Descripcion</th>
+                    <th>email</th> 
+                    <th>Fecha</th> 
+                    </tr>
+                    <% for(var i=0; i< valores.length; i++){ %>
+                    <tr>
+                    <td><%= valores[i].idticket %></td>
+                    <td><%= valores[i].titulo %></td> 
+                    <td><%= valores[i].descripcion %></td> 
+                    <td><%= valores[i].email %></td> 
+                    <td><%= valores[i].fecha %></td> 
+                    </tr>
+                    <% } %>
+                </table>
+            <% } %>
         </div>
     </body>
 </html>

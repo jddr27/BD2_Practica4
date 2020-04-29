@@ -48,7 +48,7 @@ app.post('/filtrar', (req, res) => {
     }
     else{
         console.log("correo no vacio");
-        var query = "SELECT * FROM tickets WHERE fecha > '" + req.body.fIni + "' AND fecha < '" + req.body.fFin + "' AND '" + req.body.fEmail + "' ALLOW FILTERING;";
+        var query = "SELECT * FROM tickets WHERE fecha > '" + req.body.fIni + "' AND fecha < '" + req.body.fFin + "' AND email = '" + req.body.fEmail + "' ALLOW FILTERING;";
         console.log(query);
         client.execute(query,[], (err, result) => {
             if(err){
@@ -61,8 +61,7 @@ app.post('/filtrar', (req, res) => {
             }
         });
     }
-    //res.redirect('/');
-    res.render('main',{consola:salida, valores:arreglo});
+    res.redirect('/');
 });
 
 
@@ -85,8 +84,7 @@ app.post('/crear', (req, res) => {
             console.log(result);
 		}
     });
-    //res.redirect('/');
-    res.render('main',{consola:salida, valores:arreglo});
+    res.redirect('/');
 });
   
 
