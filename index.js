@@ -61,7 +61,8 @@ app.post('/filtrar', (req, res) => {
             }
         });
     }
-    res.redirect('/');
+    //res.redirect('/');
+    res.render('main',{consola:salida, valores:arreglo});
 });
 
 
@@ -84,7 +85,8 @@ app.post('/crear', (req, res) => {
             console.log(result);
 		}
     });
-    res.redirect('/');
+    //res.redirect('/');
+    res.render('main',{consola:salida, valores:arreglo});
 });
   
 
